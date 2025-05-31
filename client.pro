@@ -1,7 +1,12 @@
 QT += core gui network widgets
 TARGET = Client
+CONFIG += c++11
 TEMPLATE = app
 SOURCES += main.cpp \
-           clientwindow.cpp
-HEADERS += clientwindow.h
-FORMS += clientwindow.ui
+    business/clientlogic.cpp \
+    ui/clientwindow.cpp
+HEADERS += \
+    business/clientlogic.h \
+    ui/clientwindow.h
+FORMS += \
+    ui/clientwindow.ui
