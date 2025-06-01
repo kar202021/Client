@@ -38,6 +38,7 @@ private:
     QString m_host;
     quint16 m_port;
     bool m_autoReconnect;
+    bool m_connectionAttempted = false;
 };
 
 #endif // CLIENTLOGIC_H

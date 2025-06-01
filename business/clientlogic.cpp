@@ -24,6 +24,7 @@ ClientLogic::~ClientLogic()
 
 void ClientLogic::connectToServer(const QString &host, quint16 port)
 {
+     m_connectionAttempted = true;
     if(m_socket->state() == QAbstractSocket::ConnectedState)
         return;
 
@@ -71,13 +72,11 @@ void ClientLogic::onConnected()
     emit connectionStatusChanged(true);
     emit logMessage("Connected to server");
 }
-
-void ClientLogic::onDisconnected()
-{
+void ClientLogic::onDisconnected() {
     emit connectionStatusChanged(false);
     emit logMessage("Disconnected from server");
 
-    if(m_autoReconnect) {
+    if (m_autoReconnect && m_connectionAttempted) {
         emit logMessage("Attempting to reconnect in 5 seconds...");
         m_reconnectTimer->start();
     }
@@ -108,3 +107,4 @@ void ClientLogic::attemptReconnect()
         m_socket->connectToHost(m_host, m_port);
     }
 }
+
